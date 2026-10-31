@@ -811,6 +811,16 @@
           "input_tokens": 283925,
           "output_tokens": 2016,
           "seconds": 68.7207
+        },
+        {
+          "file": "traces/shared-test-rerank.jsonl",
+          "system": "rerank",
+          "spans": 40,
+          "calls": 40,
+          "saved": 0,
+          "input_tokens": 580348,
+          "output_tokens": 3862,
+          "seconds": 127.2114
         }
       ],
       "run_pairs": [
@@ -969,6 +979,24 @@
           "system": "hybrid",
           "spans": 20,
           "seconds": 0.5654
+        },
+        {
+          "file": "traces/retrieval/shared-test-bm25.jsonl",
+          "system": "bm25",
+          "spans": 40,
+          "seconds": 0.1347
+        },
+        {
+          "file": "traces/retrieval/shared-test-dense.jsonl",
+          "system": "dense",
+          "spans": 40,
+          "seconds": 0.4866
+        },
+        {
+          "file": "traces/retrieval/shared-test-hybrid.jsonl",
+          "system": "hybrid",
+          "spans": 40,
+          "seconds": 0.9227
         }
       ]
     },
