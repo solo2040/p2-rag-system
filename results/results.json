@@ -406,6 +406,136 @@
               "ndcg@10": 0.613147
             }
           }
+        },
+        "rerank": {
+          "run": "runs/shared/rerank.practice.trec",
+          "mean": {
+            "recall@10": 0.758333,
+            "mrr@10": 0.8,
+            "ndcg@10": 0.768925
+          },
+          "by_class": {
+            "identifier": {
+              "n": 7,
+              "recall@10": 0.714286,
+              "mrr@10": 0.714286,
+              "ndcg@10": 0.714286
+            },
+            "paraphrase": {
+              "n": 7,
+              "recall@10": 0.595238,
+              "mrr@10": 0.714286,
+              "ndcg@10": 0.625501
+            },
+            "mixed": {
+              "n": 6,
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            }
+          },
+          "per_query": {
+            "p01": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p02": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p03": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "p04": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p05": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p06": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "p07": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p08": {
+              "recall@10": 0.666667,
+              "mrr@10": 1.0,
+              "ndcg@10": 0.765361
+            },
+            "p09": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p10": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "p11": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p12": {
+              "recall@10": 0.5,
+              "mrr@10": 1.0,
+              "ndcg@10": 0.613147
+            },
+            "p13": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p14": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "p15": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p16": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p17": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p18": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p19": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "p20": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            }
+          }
         }
       },
       "pairs": [
@@ -534,6 +664,132 @@
           "sd_diff": 0.362099,
           "mdd80": 0.226838,
           "reading": "not distinguishable"
+        },
+        {
+          "a": "rerank",
+          "b": "bm25",
+          "metric": "recall@10",
+          "n": 20,
+          "mean_diff": 0.133333,
+          "ci95": [
+            -0.1,
+            0.358333
+          ],
+          "sd_diff": 0.542358,
+          "mdd80": 0.339762,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "rerank",
+          "b": "bm25",
+          "metric": "mrr@10",
+          "n": 20,
+          "mean_diff": 0.292857,
+          "ci95": [
+            0.042857,
+            0.533333
+          ],
+          "sd_diff": 0.562859,
+          "mdd80": 0.352605,
+          "reading": "rerank higher"
+        },
+        {
+          "a": "rerank",
+          "b": "bm25",
+          "metric": "ndcg@10",
+          "n": 20,
+          "mean_diff": 0.250615,
+          "ci95": [
+            0.022008,
+            0.466249
+          ],
+          "sd_diff": 0.51586,
+          "mdd80": 0.323162,
+          "reading": "rerank higher"
+        },
+        {
+          "a": "rerank",
+          "b": "dense",
+          "metric": "recall@10",
+          "n": 20,
+          "mean_diff": 0.2,
+          "ci95": [
+            0.05,
+            0.366667
+          ],
+          "sd_diff": 0.357051,
+          "mdd80": 0.223676,
+          "reading": "rerank higher"
+        },
+        {
+          "a": "rerank",
+          "b": "dense",
+          "metric": "mrr@10",
+          "n": 20,
+          "mean_diff": 0.2375,
+          "ci95": [
+            0.083333,
+            0.408333
+          ],
+          "sd_diff": 0.381666,
+          "mdd80": 0.239096,
+          "reading": "rerank higher"
+        },
+        {
+          "a": "rerank",
+          "b": "dense",
+          "metric": "ndcg@10",
+          "n": 20,
+          "mean_diff": 0.289313,
+          "ci95": [
+            0.14891,
+            0.442866
+          ],
+          "sd_diff": 0.342397,
+          "mdd80": 0.214496,
+          "reading": "rerank higher"
+        },
+        {
+          "a": "rerank",
+          "b": "hybrid",
+          "metric": "recall@10",
+          "n": 20,
+          "mean_diff": 0.166667,
+          "ci95": [
+            0.058333,
+            0.291667
+          ],
+          "sd_diff": 0.264906,
+          "mdd80": 0.165952,
+          "reading": "rerank higher"
+        },
+        {
+          "a": "rerank",
+          "b": "hybrid",
+          "metric": "mrr@10",
+          "n": 20,
+          "mean_diff": 0.32875,
+          "ci95": [
+            0.16375,
+            0.50375
+          ],
+          "sd_diff": 0.392636,
+          "mdd80": 0.245968,
+          "reading": "rerank higher"
+        },
+        {
+          "a": "rerank",
+          "b": "hybrid",
+          "metric": "ndcg@10",
+          "n": 20,
+          "mean_diff": 0.325321,
+          "ci95": [
+            0.198854,
+            0.453267
+          ],
+          "sd_diff": 0.293123,
+          "mdd80": 0.183628,
+          "reading": "rerank higher"
         }
       ]
     }
@@ -545,8 +801,155 @@
       "pooled": null
     },
     "cost": {
-      "traces": [],
-      "run_pairs": [],
+      "traces": [
+        {
+          "file": "traces/shared-practice-rerank.jsonl",
+          "system": "rerank",
+          "spans": 20,
+          "calls": 20,
+          "saved": 2,
+          "input_tokens": 283925,
+          "output_tokens": 2016,
+          "seconds": 68.7207
+        }
+      ],
+      "run_pairs": [
+        {
+          "set": "shared/practice",
+          "cheaper": "bm25",
+          "dearer": "rerank",
+          "metric": "recall@10",
+          "n": 20,
+          "mean_diff": -0.133333,
+          "ci95": [
+            -0.358333,
+            0.1
+          ],
+          "reading": "not distinguishable",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        },
+        {
+          "set": "shared/practice",
+          "cheaper": "bm25",
+          "dearer": "rerank",
+          "metric": "mrr@10",
+          "n": 20,
+          "mean_diff": -0.292857,
+          "ci95": [
+            -0.533333,
+            -0.042857
+          ],
+          "reading": "rerank higher",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        },
+        {
+          "set": "shared/practice",
+          "cheaper": "bm25",
+          "dearer": "rerank",
+          "metric": "ndcg@10",
+          "n": 20,
+          "mean_diff": -0.250615,
+          "ci95": [
+            -0.466249,
+            -0.022008
+          ],
+          "reading": "rerank higher",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        },
+        {
+          "set": "shared/practice",
+          "cheaper": "dense",
+          "dearer": "rerank",
+          "metric": "recall@10",
+          "n": 20,
+          "mean_diff": -0.2,
+          "ci95": [
+            -0.366667,
+            -0.05
+          ],
+          "reading": "rerank higher",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        },
+        {
+          "set": "shared/practice",
+          "cheaper": "dense",
+          "dearer": "rerank",
+          "metric": "mrr@10",
+          "n": 20,
+          "mean_diff": -0.2375,
+          "ci95": [
+            -0.408333,
+            -0.083333
+          ],
+          "reading": "rerank higher",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        },
+        {
+          "set": "shared/practice",
+          "cheaper": "dense",
+          "dearer": "rerank",
+          "metric": "ndcg@10",
+          "n": 20,
+          "mean_diff": -0.289313,
+          "ci95": [
+            -0.442866,
+            -0.14891
+          ],
+          "reading": "rerank higher",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        },
+        {
+          "set": "shared/practice",
+          "cheaper": "hybrid",
+          "dearer": "rerank",
+          "metric": "recall@10",
+          "n": 20,
+          "mean_diff": -0.166667,
+          "ci95": [
+            -0.291667,
+            -0.058333
+          ],
+          "reading": "rerank higher",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        },
+        {
+          "set": "shared/practice",
+          "cheaper": "hybrid",
+          "dearer": "rerank",
+          "metric": "mrr@10",
+          "n": 20,
+          "mean_diff": -0.32875,
+          "ci95": [
+            -0.50375,
+            -0.16375
+          ],
+          "reading": "rerank higher",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        },
+        {
+          "set": "shared/practice",
+          "cheaper": "hybrid",
+          "dearer": "rerank",
+          "metric": "ndcg@10",
+          "n": 20,
+          "mean_diff": -0.325321,
+          "ci95": [
+            -0.453267,
+            -0.198854
+          ],
+          "reading": "rerank higher",
+          "input_saved_per_query": 14196.25,
+          "seconds_saved_per_query": 3.436035
+        }
+      ],
       "answers_pairs": [],
       "local": [
         {
