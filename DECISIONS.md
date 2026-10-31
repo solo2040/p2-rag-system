@@ -26,7 +26,7 @@ Commit this answer before your first `uv run p2 score` on the own corpus.
 Git history then shows that the expectation came first, which is what lets it be wrong in a way that teaches you something.
 If you were surprised later, say so in prompt 4 or in EVAL.md; do not come back and rewrite this one.
 
-TODO: your answer to prompt 1.
+ANSWER:
 
 ---
 
@@ -41,7 +41,8 @@ If you rejected the alternative without measuring it, say why that was a fair ca
 "There was no alternative" is not an answer.
 Find the fork.
 
-TODO: your answer to prompt 2.
+ANSWER:
+I decided to go with bge for the basic embedding model, as it performed the most consistent during lab 12. I had the option to pursue potion but decided aganist it due to computational power and time requirements. By not pursing potion, I may have given up a more generalizable retriever.
 
 ---
 
