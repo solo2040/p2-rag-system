@@ -164,6 +164,7 @@ Scores per system on your gold set.
 | hybrid | 0.900 | 0.738 | 0.778 |
 | rerank | 0.967 | 0.888 | 0.908 |
 | ablation/bm25_lab | 1.000 | 0.777 | 0.831 |
+| ablation/dense_small | 0.800 | 0.665 | 0.698 |
 
 30 judged queries; nDCG uses binary labels; a random ranking of the 307 documents would get recall@10 near 0.033.
 <!-- p2:end own -->
@@ -188,6 +189,9 @@ The same scores per query class.
 | ablation/bm25_lab | Recall@10 | 1.000 | 1.000 | 1.000 |
 | ablation/bm25_lab | MRR@10 | 0.766 | 0.753 | 0.822 |
 | ablation/bm25_lab | nDCG@10 | 0.822 | 0.814 | 0.864 |
+| ablation/dense_small | Recall@10 | 0.250 | 1.000 | 1.000 |
+| ablation/dense_small | MRR@10 | 0.067 | 0.801 | 1.000 |
+| ablation/dense_small | nDCG@10 | 0.111 | 0.851 | 1.000 |
 <!-- p2:end own-classes -->
 
 The same scores for the queries you wrote yourself (`hand`) and the ones a model drafted (`claude`), with the difference between the two groups and its interval.
@@ -211,6 +215,9 @@ Once both groups have queries, the table also says whether `bm25`'s lead over `d
 | ablation/bm25_lab | Recall@10 | 1.000 | 1.000 | +0.000 | [+0.000, +0.000] | not distinguishable |
 | ablation/bm25_lab | MRR@10 | 0.950 | 0.690 | +0.260 | [+0.080, +0.441] | hand higher |
 | ablation/bm25_lab | nDCG@10 | 0.963 | 0.765 | +0.198 | [+0.062, +0.336] | hand higher |
+| ablation/dense_small | Recall@10 | 0.800 | 0.800 | +0.000 | [-0.300, +0.300] | not distinguishable |
+| ablation/dense_small | MRR@10 | 0.733 | 0.631 | +0.102 | [-0.218, +0.403] | not distinguishable |
+| ablation/dense_small | nDCG@10 | 0.750 | 0.672 | +0.078 | [-0.232, +0.366] | not distinguishable |
 
 The hand and claude queries are different queries, so the interval of hand minus claude comes from resampling the queries within each group (10,000 times), not from pairing them.
 
@@ -262,6 +269,21 @@ Differences between every pair of systems.
 | ablation/bm25_lab minus rerank | Recall@10 | +0.033 | [+0.000, +0.100] | 0.093 | not distinguishable |
 | ablation/bm25_lab minus rerank | MRR@10 | -0.111 | [-0.236, +0.007] | 0.177 | not distinguishable |
 | ablation/bm25_lab minus rerank | nDCG@10 | -0.077 | [-0.177, +0.021] | 0.145 | not distinguishable |
+| ablation/dense_small minus bm25 | Recall@10 | -0.200 | [-0.367, -0.067] | 0.208 | bm25 higher |
+| ablation/dense_small minus bm25 | MRR@10 | -0.107 | [-0.293, +0.069] | 0.263 | not distinguishable |
+| ablation/dense_small minus bm25 | nDCG@10 | -0.130 | [-0.303, +0.028] | 0.242 | not distinguishable |
+| ablation/dense_small minus dense | Recall@10 | +0.000 | [-0.133, +0.133] | 0.190 | not distinguishable |
+| ablation/dense_small minus dense | MRR@10 | +0.072 | [-0.016, +0.179] | 0.144 | not distinguishable |
+| ablation/dense_small minus dense | nDCG@10 | +0.056 | [-0.034, +0.159] | 0.141 | not distinguishable |
+| ablation/dense_small minus hybrid | Recall@10 | -0.100 | [-0.233, +0.000] | 0.156 | not distinguishable |
+| ablation/dense_small minus hybrid | MRR@10 | -0.072 | [-0.191, +0.037] | 0.166 | not distinguishable |
+| ablation/dense_small minus hybrid | nDCG@10 | -0.079 | [-0.188, +0.016] | 0.148 | not distinguishable |
+| ablation/dense_small minus rerank | Recall@10 | -0.167 | [-0.300, -0.033] | 0.194 | rerank higher |
+| ablation/dense_small minus rerank | MRR@10 | -0.223 | [-0.387, -0.070] | 0.230 | rerank higher |
+| ablation/dense_small minus rerank | nDCG@10 | -0.209 | [-0.362, -0.070] | 0.214 | rerank higher |
+| ablation/dense_small minus ablation/bm25_lab | Recall@10 | -0.200 | [-0.367, -0.067] | 0.208 | ablation/bm25_lab higher |
+| ablation/dense_small minus ablation/bm25_lab | MRR@10 | -0.112 | [-0.293, +0.060] | 0.257 | not distinguishable |
+| ablation/dense_small minus ablation/bm25_lab | nDCG@10 | -0.133 | [-0.304, +0.022] | 0.238 | not distinguishable |
 
 The interval is a paired bootstrap (10,000 resamples of the queries); MDD is the smallest difference this many queries detect 80% of the time. Two systems that score the same on every query have no interval to speak of, so their MDD is shown as -.
 <!-- p2:end own-pairs -->
@@ -297,6 +319,18 @@ The run file for it lives in `runs/own/ablation/`.
 | ablation/bm25_lab minus rerank | Recall@10 | +0.033 | [+0.000, +0.100] | 0.093 | not distinguishable |
 | ablation/bm25_lab minus rerank | MRR@10 | -0.111 | [-0.236, +0.007] | 0.177 | not distinguishable |
 | ablation/bm25_lab minus rerank | nDCG@10 | -0.077 | [-0.177, +0.021] | 0.145 | not distinguishable |
+| ablation/dense_small minus bm25 | Recall@10 | -0.200 | [-0.367, -0.067] | 0.208 | bm25 higher |
+| ablation/dense_small minus bm25 | MRR@10 | -0.107 | [-0.293, +0.069] | 0.263 | not distinguishable |
+| ablation/dense_small minus bm25 | nDCG@10 | -0.130 | [-0.303, +0.028] | 0.242 | not distinguishable |
+| ablation/dense_small minus dense | Recall@10 | +0.000 | [-0.133, +0.133] | 0.190 | not distinguishable |
+| ablation/dense_small minus dense | MRR@10 | +0.072 | [-0.016, +0.179] | 0.144 | not distinguishable |
+| ablation/dense_small minus dense | nDCG@10 | +0.056 | [-0.034, +0.159] | 0.141 | not distinguishable |
+| ablation/dense_small minus hybrid | Recall@10 | -0.100 | [-0.233, +0.000] | 0.156 | not distinguishable |
+| ablation/dense_small minus hybrid | MRR@10 | -0.072 | [-0.191, +0.037] | 0.166 | not distinguishable |
+| ablation/dense_small minus hybrid | nDCG@10 | -0.079 | [-0.188, +0.016] | 0.148 | not distinguishable |
+| ablation/dense_small minus rerank | Recall@10 | -0.167 | [-0.300, -0.033] | 0.194 | rerank higher |
+| ablation/dense_small minus rerank | MRR@10 | -0.223 | [-0.387, -0.070] | 0.230 | rerank higher |
+| ablation/dense_small minus rerank | nDCG@10 | -0.209 | [-0.362, -0.070] | 0.214 | rerank higher |
 
 The interval is a paired bootstrap (10,000 resamples of the queries); MDD is the smallest difference this many queries detect 80% of the time. Two systems that score the same on every query have no interval to speak of, so their MDD is shown as -.
 <!-- p2:end own-ablation -->
@@ -313,6 +347,21 @@ ablation/bm25_lab against bm25 (BASE = "bm25" in p2/retrievers/bm25_lab.py): it 
 | c03 | identifier | claude | 0.500 | 0.125 | -0.375 | hurt |
 | c16 | mixed | claude | 0.333 | 0.200 | -0.133 | hurt |
 | c19 | mixed | claude | 0.333 | 0.200 | -0.133 | hurt |
+
+ablation/dense_small against dense (BASE = "dense" in p2/retrievers/dense_small.py): it helped 5 queries, hurt 5 and left 20 unchanged.
+
+| Query | Class | Origin | dense RR | ablation/dense_small RR | Change | Effect |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| h08 | mixed | hand | 0.000 | 1.000 | +1.000 | helped |
+| h06 | paraphrase | hand | 0.250 | 1.000 | +0.750 | helped |
+| h10 | mixed | hand | 0.333 | 1.000 | +0.667 | helped |
+| c06 | paraphrase | claude | 0.167 | 0.500 | +0.333 | helped |
+| h02 | identifier | hand | 0.000 | 0.333 | +0.333 | helped |
+| h01 | identifier | hand | 0.333 | 0.000 | -0.333 | hurt |
+| c08 | paraphrase | claude | 0.500 | 0.250 | -0.250 | hurt |
+| c13 | paraphrase | claude | 0.500 | 0.333 | -0.167 | hurt |
+| c02 | identifier | claude | 0.111 | 0.000 | -0.111 | hurt |
+| c03 | identifier | claude | 0.250 | 0.200 | -0.050 | hurt |
 
 RR is the reciprocal rank of the first relevant document in the top 10 (0 when none is there), the per-query value behind MRR@10; the queries at the top of each list are the ones to read.
 <!-- p2:end own-ablation-queries -->
@@ -375,8 +424,13 @@ Whichever option you chose, write these five things:
 For a second ablation, write its hypothesis here before you run it, and commit it, so your history shows that it came first.
 For the hand and claude queries, do the same with your prediction before you score.
 
-Stretch Goal: second ablation
+Option Name: second ablation
 HYPOTHESIS: I expect changing dense with 100-word chunks instead of 300 to lower MRR@10 on my corpus because the smaller word chunks will miss gereralizable information, leading to sections being broken up and queries being missed.
+What I did: I changed word chunks from 300 to 100 for dense.
+File: p2/retrievers/dense_small.py and runs/own/ablation/dense_small.trec
+
+Conclusion:
+The interval allows me to claim that my hypothesis was wrong and the MRR actually went up, meaning that the smaller chunks actually helped. However, the interval signifies that there wasn't a huge difference(shown by non distinguishable). Next time, I will test the models on a different field with more unorganized data to see how it handles that formation. If the scores are similar, then I can confirm it isn't messy data that has the biggest impact.
 
 ### Claim-level faithfulness check (option 2)
 
@@ -420,6 +474,7 @@ Systems that do not call Claude, from traces/retrieval/ on the machine that last
 | Trace | System | Queries | Seconds | Milliseconds per query |
 | --- | --- | ---: | ---: | ---: |
 | traces/retrieval/own-own-ablation-bm25_lab.jsonl | bm25_lab | 30 | 0.04 | 1.2 |
+| traces/retrieval/own-own-ablation-dense_small.jsonl | dense_small | 30 | 0.36 | 11.9 |
 | traces/retrieval/own-own-bm25.jsonl | bm25 | 30 | 0.04 | 1.3 |
 | traces/retrieval/own-own-dense.jsonl | dense | 30 | 0.27 | 9.1 |
 | traces/retrieval/own-own-hybrid.jsonl | hybrid | 30 | 0.32 | 10.6 |
