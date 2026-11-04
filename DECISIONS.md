@@ -60,7 +60,8 @@ What did you do instead?
 If it genuinely never happened, say so plainly, and then say what you would have had to check in order to notice.
 Being honest here costs you far less than a story you cannot defend when you record your video.
 
-TODO: your answer to prompt 3.
+ANSWER:
+It said that two of the documents were not able to be included in my own corpus, but after investigating, I determined that the keyword publisher was throwing off the lincensing issue. After explaining to claude that both documents were only citing sources and not actually borrowing copyrighted material, the two documents were able to be included.
 
 ---
 
@@ -72,7 +73,8 @@ It could be a mean over a small query class, a difference whose interval include
 What would have to be true for you to trust it?
 Did you do anything to test it, and what did that show?
 
-TODO: your answer to prompt 4.
+ANSWER:
+I do not entirly trust the RECALL@10 score for bm25 for my own corpus, as it is 1.0(in other words perfect). In order for it to be true for me to trust it, I would need to add more test cases and see if it still behaves the same. I did not do anything to test it unfortunately due to time constraints.
 
 ---
 
@@ -83,4 +85,5 @@ One thing in your system, your corpus or your gold set that is not right, not fi
 What would you do next, and how would you find out whether it matters?
 Name the file, the query or the document where someone could look.
 
-TODO: your answer to prompt 5.
+ANSWER:
+I think that this rag system was very easy for the approaches to search through. In a practical industry environment, much of this information could be scattered and not well documented, making the approaches struggle with finding patterns across documents. I would try with a third corpus that has unorganized information, with potential knowledge gaps and test the system on that.

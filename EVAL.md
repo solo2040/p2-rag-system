@@ -163,6 +163,7 @@ Scores per system on your gold set.
 | dense | 0.800 | 0.593 | 0.643 |
 | hybrid | 0.900 | 0.738 | 0.778 |
 | rerank | 0.967 | 0.888 | 0.908 |
+| ablation/bm25_lab | 1.000 | 0.777 | 0.831 |
 
 30 judged queries; nDCG uses binary labels; a random ranking of the 307 documents would get recall@10 near 0.033.
 <!-- p2:end own -->
@@ -184,6 +185,9 @@ The same scores per query class.
 | rerank | Recall@10 | 0.875 | 1.000 | 1.000 |
 | rerank | MRR@10 | 0.875 | 0.819 | 1.000 |
 | rerank | nDCG@10 | 0.875 | 0.864 | 1.000 |
+| ablation/bm25_lab | Recall@10 | 1.000 | 1.000 | 1.000 |
+| ablation/bm25_lab | MRR@10 | 0.766 | 0.753 | 0.822 |
+| ablation/bm25_lab | nDCG@10 | 0.822 | 0.814 | 0.864 |
 <!-- p2:end own-classes -->
 
 The same scores for the queries you wrote yourself (`hand`) and the ones a model drafted (`claude`), with the difference between the two groups and its interval.
@@ -204,6 +208,9 @@ Once both groups have queries, the table also says whether `bm25`'s lead over `d
 | rerank | Recall@10 | 1.000 | 0.950 | +0.050 | [+0.000, +0.150] | not distinguishable |
 | rerank | MRR@10 | 1.000 | 0.832 | +0.168 | [+0.050, +0.311] | hand higher |
 | rerank | nDCG@10 | 1.000 | 0.861 | +0.139 | [+0.037, +0.268] | hand higher |
+| ablation/bm25_lab | Recall@10 | 1.000 | 1.000 | +0.000 | [+0.000, +0.000] | not distinguishable |
+| ablation/bm25_lab | MRR@10 | 0.950 | 0.690 | +0.260 | [+0.080, +0.441] | hand higher |
+| ablation/bm25_lab | nDCG@10 | 0.963 | 0.765 | +0.198 | [+0.062, +0.336] | hand higher |
 
 The hand and claude queries are different queries, so the interval of hand minus claude comes from resampling the queries within each group (10,000 times), not from pairing them.
 
@@ -243,8 +250,20 @@ Differences between every pair of systems.
 | rerank minus hybrid | Recall@10 | +0.067 | [+0.000, +0.167] | 0.130 | not distinguishable |
 | rerank minus hybrid | MRR@10 | +0.151 | [+0.010, +0.300] | 0.211 | rerank higher |
 | rerank minus hybrid | nDCG@10 | +0.130 | [+0.012, +0.258] | 0.180 | rerank higher |
+| ablation/bm25_lab minus bm25 | Recall@10 | +0.000 | [+0.000, +0.000] | - | identical on every query |
+| ablation/bm25_lab minus bm25 | MRR@10 | +0.005 | [-0.043, +0.071] | 0.086 | not distinguishable |
+| ablation/bm25_lab minus bm25 | nDCG@10 | +0.002 | [-0.036, +0.054] | 0.067 | not distinguishable |
+| ablation/bm25_lab minus dense | Recall@10 | +0.200 | [+0.067, +0.333] | 0.208 | ablation/bm25_lab higher |
+| ablation/bm25_lab minus dense | MRR@10 | +0.184 | [+0.001, +0.369] | 0.267 | ablation/bm25_lab higher |
+| ablation/bm25_lab minus dense | nDCG@10 | +0.188 | [+0.027, +0.354] | 0.238 | ablation/bm25_lab higher |
+| ablation/bm25_lab minus hybrid | Recall@10 | +0.100 | [+0.000, +0.200] | 0.156 | not distinguishable |
+| ablation/bm25_lab minus hybrid | MRR@10 | +0.039 | [-0.114, +0.202] | 0.231 | not distinguishable |
+| ablation/bm25_lab minus hybrid | nDCG@10 | +0.053 | [-0.078, +0.196] | 0.201 | not distinguishable |
+| ablation/bm25_lab minus rerank | Recall@10 | +0.033 | [+0.000, +0.100] | 0.093 | not distinguishable |
+| ablation/bm25_lab minus rerank | MRR@10 | -0.111 | [-0.236, +0.007] | 0.177 | not distinguishable |
+| ablation/bm25_lab minus rerank | nDCG@10 | -0.077 | [-0.177, +0.021] | 0.145 | not distinguishable |
 
-The interval is a paired bootstrap (10,000 resamples of the queries); MDD is the smallest difference this many queries detect 80% of the time.
+The interval is a paired bootstrap (10,000 resamples of the queries); MDD is the smallest difference this many queries detect 80% of the time. Two systems that score the same on every query have no interval to speak of, so their MDD is shown as -.
 <!-- p2:end own-pairs -->
 
 Which differences are distinguishable and which are not, at your gold-set size?
@@ -260,24 +279,50 @@ It seems that dense was notably distinguishable from the rest of the approaches,
 
 Change one thing and keep everything else the same.
 Write your hypothesis here before you run it, in one sentence with a direction: "I expect X to raise MRR@10 on my corpus because Y."
+HYPOTHESIS: I expect the plain tokenizer to lower MRR@10 on my identifier-style queries because it allows for sections and subsetions to be split up, allowing for identifiers to find more matches
 The run file for it lives in `runs/own/ablation/`.
 
 <!-- p2:begin own-ablation -->
-_No ablation runs yet: `uv run p2 run --corpus own --system NAME --ablation` writes one to runs/own/ablation/, then `uv run p2 score` fills this table._
+| Comparison | Metric | Mean difference | 95% interval | MDD | Reading |
+| --- | --- | ---: | ---: | ---: | --- |
+| ablation/bm25_lab minus bm25 | Recall@10 | +0.000 | [+0.000, +0.000] | - | identical on every query |
+| ablation/bm25_lab minus bm25 | MRR@10 | +0.005 | [-0.043, +0.071] | 0.086 | not distinguishable |
+| ablation/bm25_lab minus bm25 | nDCG@10 | +0.002 | [-0.036, +0.054] | 0.067 | not distinguishable |
+| ablation/bm25_lab minus dense | Recall@10 | +0.200 | [+0.067, +0.333] | 0.208 | ablation/bm25_lab higher |
+| ablation/bm25_lab minus dense | MRR@10 | +0.184 | [+0.001, +0.369] | 0.267 | ablation/bm25_lab higher |
+| ablation/bm25_lab minus dense | nDCG@10 | +0.188 | [+0.027, +0.354] | 0.238 | ablation/bm25_lab higher |
+| ablation/bm25_lab minus hybrid | Recall@10 | +0.100 | [+0.000, +0.200] | 0.156 | not distinguishable |
+| ablation/bm25_lab minus hybrid | MRR@10 | +0.039 | [-0.114, +0.202] | 0.231 | not distinguishable |
+| ablation/bm25_lab minus hybrid | nDCG@10 | +0.053 | [-0.078, +0.196] | 0.201 | not distinguishable |
+| ablation/bm25_lab minus rerank | Recall@10 | +0.033 | [+0.000, +0.100] | 0.093 | not distinguishable |
+| ablation/bm25_lab minus rerank | MRR@10 | -0.111 | [-0.236, +0.007] | 0.177 | not distinguishable |
+| ablation/bm25_lab minus rerank | nDCG@10 | -0.077 | [-0.177, +0.021] | 0.145 | not distinguishable |
+
+The interval is a paired bootstrap (10,000 resamples of the queries); MDD is the smallest difference this many queries detect 80% of the time. Two systems that score the same on every query have no interval to speak of, so their MDD is shown as -.
 <!-- p2:end own-ablation -->
 
 The queries your ablation helped and hurt, against the system it varies, by reciprocal rank.
 `p2 score` finds that system from a line such as `BASE = "bm25"` in your variant's file, or else from its name: `bm25_lab` varies `bm25`.
 
 <!-- p2:begin own-ablation-queries -->
-_No ablation runs yet: `uv run p2 run --corpus own --system NAME --ablation` writes one to runs/own/ablation/, then `uv run p2 score` fills this table._
+ablation/bm25_lab against bm25 (BASE = "bm25" in p2/retrievers/bm25_lab.py): it helped 1 queries, hurt 3 and left 26 unchanged.
+
+| Query | Class | Origin | bm25 RR | ablation/bm25_lab RR | Change | Effect |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| h04 | paraphrase | hand | 0.200 | 1.000 | +0.800 | helped |
+| c03 | identifier | claude | 0.500 | 0.125 | -0.375 | hurt |
+| c16 | mixed | claude | 0.333 | 0.200 | -0.133 | hurt |
+| c19 | mixed | claude | 0.333 | 0.200 | -0.133 | hurt |
+
+RR is the reciprocal rank of the first relevant document in the top 10 (0 when none is there), the per-query value behind MRR@10; the queries at the top of each list are the ones to read.
 <!-- p2:end own-ablation-queries -->
 
 What did you change, what happened, and does the interval support the claim you want to make?
 If the result is not distinguishable, say what size of effect your gold set could have seen.
 Read the queries at the top of each list in the second table, and say whether your change explains them.
 
-TODO: write the ablation: the one change, the hypothesis, the result and the claim.
+ANSWER:
+Changed the bm25 tokenizer from codes to lab. It seemed that it helped 1 of the queries, but hurt 3. The interval supports this claim with the identifier class drop by -0.046. The result was distinguishable against the dense approach. My changed doesn't explain hurting the identifier, but could potentially explain the paraphrase and mixed classes.
 
 ---
 
@@ -288,9 +333,14 @@ Take at least five, and read what the system returned next to what was relevant.
 Then sort the failures by cause, for example a vocabulary mismatch, near-duplicate documents, a chunk that cut the answer in half, a query that is ambiguous, or a label that was wrong, because sometimes the gold set is what failed.
 
 | qid | what the best system returned | what was relevant | cause | what you would try |
-| --- | ----------------------------- | ----------------- | ----- | ------------------ |
+| c04 | 1926.55 Gases, vapors, fumes, | nothing | missed vocabulary | making sure 1926.1153 is mentioned in doc |
+| c11 | General requirements | just general answers to the questions | general document took presidence | adding policy to look for key words all in the same chunk of words so a gernal document does not dominate rank |
+| c06 | Scope, application, and definitions applicable to this support | the support sesction and definitions | identifier saw too many key words even though answer wasn't contained within | could be worth a manual adjustment via training or to doc |
+| c08 | 1926.52 Occupational noise exposure | answer to question was relevant | ambigious question | model actually performed correctly here, as answer was also contained in this document |
+| c13 | Equitment | general answers, so could give rough answer | general document took presidence | ensuring that answer cannot be half answered by a different document and tuning |
 
-TODO: add one row for each failure you analyzed, and write two or three sentences on the pattern you see across them.
+ANSWER:
+Overall, there seemed to be documents that contained a ton of information about general procedure that took dominance over correct document. However, in almost every failure, the correct document was within the top 5(only had a certain number of failures, so could not 5 unique failures where the document is missing from or not near the top 10)
 
 ---
 
@@ -303,7 +353,8 @@ Did the winner change between the shared corpus and yours?
 Why, or why not: what is different about the two collections (document length, vocabulary, identifiers, near-duplicates, how the queries were written), and which of your explanations did you test and which are guesses?
 Say what 20 queries on one side and your gold-set size on the other cannot support.
 
-TODO: write the cross-corpus comparison.
+ANSWER:
+The winner did not change between the shared corpus and mine because the reranker is great at being able to find outliers and refine the behavior of the models. Also, since it utilizes hybrid before making its decisions, it still does not add that much compute power. Both collections did contain similar material around construction, but I did test with a different set of queries with different text styles. The 20 queries on one side and the gold-set on the other cannot support that this model could perform the same on a different field.
 
 ---
 
@@ -365,6 +416,7 @@ Systems that do not call Claude, from traces/retrieval/ on the machine that last
 
 | Trace | System | Queries | Seconds | Milliseconds per query |
 | --- | --- | ---: | ---: | ---: |
+| traces/retrieval/own-own-ablation-bm25_lab.jsonl | bm25_lab | 30 | 0.04 | 1.2 |
 | traces/retrieval/own-own-bm25.jsonl | bm25 | 30 | 0.04 | 1.3 |
 | traces/retrieval/own-own-dense.jsonl | dense | 30 | 0.27 | 9.1 |
 | traces/retrieval/own-own-hybrid.jsonl | hybrid | 30 | 0.32 | 10.6 |
