@@ -2,3 +2,33 @@
 # origin is hand when you wrote the query yourself and claude when a model drafted it; at least 10 must be hand.
 # class is a word you choose, for example identifier, paraphrase or mixed as in the shared sets; scores are reported per class.
 # Lines that start with # are comments, so delete these lines or keep them, as you like.
+c01	identifier	1926.652	claude
+c02	identifier	What does 1926.1053 require?	claude
+c03	identifier	29 CFR 1926.501	claude
+c04	identifier	1926.1153	claude
+c05	identifier	1926.904	claude
+c06	paraphrase	How deep can a trench be before it needs shoring or a trench box?	claude
+c07	paraphrase	At what height above a lower level must workers be protected from falling?	claude
+c08	paraphrase	How loud can the noise on a job site get before hearing protection is needed?	claude
+c09	paraphrase	Do workers have to wear hard hats on a building site?	claude
+c10	paraphrase	Does a crane operator need to be certified?	claude
+c11	paraphrase	What rules apply when a worker has to go into a tank or pit where the air may be bad?	claude
+c12	paraphrase	How strong must the top rail of a guardrail be?	claude
+c13	paraphrase	How close can a crane or other equipment work to overhead power lines?	claude
+c14	paraphrase	What must an employer provide if no hospital is nearby when a worker is hurt?	claude
+c15	mixed	scaffold platform guardrail height 1926.451	claude
+c16	mixed	silica permissible exposure limit 8-hour time weighted average	claude
+c17	mixed	fire extinguisher travel distance 1926.150	claude
+c18	mixed	demolition engineering survey before starting 1926.850	claude
+c19	mixed	lead exposure action level 1926.62	claude
+c20	mixed	ladder side rails extend above landing 1926.1053	claude
+h01	identifier	1926.1442	hand
+h02	identifier	1926.1101 part 1	hand
+h03	identifier	CFR 1926.64	hand
+h04	paraphrase	Is any person allowed to work with radioactive materials or X-ray equipment?	hand
+h05	paraphrase	When should a danger sign be used versus a caution sign?	hand
+h06	paraphrase	If a worker is absent for 15 days, does that affect their ability to work in a compresses air environment?	hand
+h07	paraphrase	How much minimum weight should a column splice be designed to resist?	hand
+h08	mixed	Engulfment meaning 1926.1202	hand
+h09	mixed	cadmium negative effects on person 1926.1127	hand
+h10	mixed	yard storage maximum pile height 1926.151	hand
