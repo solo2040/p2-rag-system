@@ -25,7 +25,10 @@ The minimum detectable difference is the smallest gap this many queries could re
 
 For each of `dense`, `hybrid` and `rerank`, one or two sentences: the embedding model, how documents were chunked, what was fused and how, how many candidates the reranker saw, and anything you changed from the 12 and 13 lab code.
 
-TODO: describe your three systems.
+ANSWER:
+Dense - uses bge-small, documents are chunked into 300-word chunks that overlap by 50 words and embeds each chunk, dense was not fused, and nothing was changed from the previous lab code
+Hybrid - combines both bm25 and dense, where the documents were chunked in a similar manner with dense, but bm25 embedded chunks via term simularity. Hybrid was fused by having both bm25 and dense output their induvidual simularities, and then hybrid ranked answers/documents based on their combined rank. Nothing changed between labs
+Rerank - uses hybrid first, then claude to evaluate the top options provided by hybrid, only reading chunks of the articles. The reranker saw the top 20 candidates from hybrid, and nothing was changed from labs 12 and 13.
 
 ### Practice queries (20)
 
@@ -97,7 +100,8 @@ Which differences are distinguishable from zero and which are not?
 What is the minimum detectable difference at 20 queries, and what does that say about any gap smaller than it?
 Which claim from lecture 12 or 13 did your numbers support, and which did they leave open?
 
-TODO: write what the practice-query intervals let you claim.
+ANSWER:
+It seems that many of the differences between dense, bm25, and hybrid are all not distiguishable, meaning there would not be a huge difference in interchanging the approaches. However, almost every rerank difference is noticable, meaning that using claude to rerank the items had a huge difference. The minimum detectable difference at 20 queries seems to be between rerank and hybrid, and this makes the case that any gap smaller would signify the same approaches being compared. My claim from lecture 12 and 13 about rerank being the best overall is supported by rerank having a significant difference in performance against the other approaches. However, the numbers still signify that bm25 is not nessessarily better than the hybrid or dense approach as I thought it would be.
 
 ---
 
@@ -116,7 +120,11 @@ Then read three in-corpus answers that `uv run p2 verify` passed.
 For each one, open the cited chunk and say whether the quote really supports the claim next to it.
 The check proves a quote is a real piece of the chunk and cannot prove that it supports the claim, so this reading is the part only you can do.
 
-TODO: write your answer choices and your three-answer audit.
+ANSWER:
+It seemed that the rerank system answered due to its clear better performance over the other approaches. I did not change anything in prompts/answer.txt and neither moved.
+a01: the quote did support the claim next to it, and i verified it in the cited corpus
+a02: the quote did support the claim next to it but it did also provide additional, not nessessarily required details, and i verified it in the cited corpus.
+a04: similar story to a02 where the answer was provided and did in fact exist in the corpus, but the answer added additional details
 
 ---
 
@@ -208,7 +216,7 @@ Take at least five, and read what the system returned next to what was relevant.
 Then sort the failures by cause, for example a vocabulary mismatch, near-duplicate documents, a chunk that cut the answer in half, a query that is ambiguous, or a label that was wrong, because sometimes the gold set is what failed.
 
 | qid | what the best system returned | what was relevant | cause | what you would try |
-|---|---|---|---|---|
+| --- | ----------------------------- | ----------------- | ----- | ------------------ |
 
 TODO: add one row for each failure you analyzed, and write two or three sentences on the pattern you see across them.
 
