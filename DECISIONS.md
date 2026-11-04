@@ -27,6 +27,8 @@ Git history then shows that the expectation came first, which is what lets it be
 If you were surprised later, say so in prompt 4 or in EVAL.md; do not come back and rewrite this one.
 
 ANSWER:
+I picked the corpus I used in stage 2 because it seemed like an interesting field with many nuances that would make the problem interesting. Plus, it will act as an addition to stage 1. The construction field is one that requires workers to understand many operational procedure guidelines, and this rag system would be great in answering quick questions without requiring them to do hours of research.
+I believe rerank will win on most of it due to its ability to deal with outliers smoothly. Based on the performance of approaches on stage 1, I believe bm25 will continue to perform the worst since it shines at searching direct words rather than understanding large concepts like dense, hybrid, and rerank do.
 
 ---
 
