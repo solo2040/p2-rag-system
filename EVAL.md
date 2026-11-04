@@ -375,6 +375,9 @@ Whichever option you chose, write these five things:
 For a second ablation, write its hypothesis here before you run it, and commit it, so your history shows that it came first.
 For the hand and claude queries, do the same with your prediction before you score.
 
+Stretch Goal: second ablation
+HYPOTHESIS: I expect changing dense with 100-word chunks instead of 300 to lower MRR@10 on my corpus because the smaller word chunks will miss gereralizable information, leading to sections being broken up and queries being missed.
+
 ### Claim-level faithfulness check (option 2)
 
 Claude's verdicts from `p2 judge` against your own verdicts in the calibration file.
