@@ -424,13 +424,13 @@ Whichever option you chose, write these five things:
 For a second ablation, write its hypothesis here before you run it, and commit it, so your history shows that it came first.
 For the hand and claude queries, do the same with your prediction before you score.
 
-Option Name: second ablation
+Second ablation; see own-ablation and own-ablation-queries in section 5.
 HYPOTHESIS: I expect changing dense with 100-word chunks instead of 300 to lower MRR@10 on my corpus because the smaller word chunks will miss gereralizable information, leading to sections being broken up and queries being missed.
 What I did: I changed word chunks from 300 to 100 for dense.
 File: p2/retrievers/dense_small.py and runs/own/ablation/dense_small.trec
 
 Conclusion:
-The interval allows me to claim that my hypothesis was wrong and the MRR actually went up, meaning that the smaller chunks actually helped. However, the interval signifies that there wasn't a huge difference(shown by non distinguishable). Next time, I will test the models on a different field with more unorganized data to see how it handles that formation. If the scores are similar, then I can confirm it isn't messy data that has the biggest impact.
+The interval allows me to claim that my hypothesis was not nessessarily wrong as the MRR may have went up, but the interval signifies that there wasn't a huge difference(shown by non distinguishable). Next time, I will test the models on a different field with more unorganized data to see how it handles that formation. If the scores are similar, then I can confirm it isn't messy data that has the biggest impact.
 
 ### Claim-level faithfulness check (option 2)
 
